@@ -1,0 +1,8 @@
+requests
+torch
+torchaudio
+audiocraft
+python-osc
+numpy
+scipy
+python-dotenv
