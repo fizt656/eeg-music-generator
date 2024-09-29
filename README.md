@@ -1,3 +1,4 @@
+![COA Banner](banner.png)
 # EEG-Based Music Generator
 
 Welcome to the EEG-Based Music Generator, where we turn brain waves into tunes! As the Chief of Appetization (COA) would say, "Let's serve up some auditory delights!"
