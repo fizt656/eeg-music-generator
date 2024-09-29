@@ -93,3 +93,6 @@ eeg_frequency_data_*.csv
 # Operating system-related files
 .DS_Store  # macOS
 Thumbs.db  # Windows
+
+# Sensitive information
+.env  # For storing environment variables like API tokens
