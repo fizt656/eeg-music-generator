@@ -77,12 +77,3 @@ python music_generator.py [--local] [--duration DURATION]
 - The OSC message should be sent to the "/eeg" address with the frequency band data as arguments (I didn't know that!)
 - If using the Replicate API, make sure your API token is correctly set in the .env file (COA's secret sauce)
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. Just be careful with your students' code, Shinya!
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. As the COA would say, "Serve responsibly!"
-
-Remember, in the words of our esteemed Chief of Appetization, "A well-seasoned codebase is the key to a satisfying user experience!" Now go forth and generate some brain-bending tunes!
