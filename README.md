@@ -27,7 +27,7 @@ Welcome to the EEG-Based Music Generator, where we turn brain waves into tunes! 
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/eeg-music-generator.git
+   git clone https://github.com/fizt656/eeg-music-generator.git
    cd eeg-music-generator
    ```
 
@@ -46,7 +46,7 @@ Mac users should use the `music_generator_mac.py` script and follow these steps:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/eeg-music-generator.git
+   git clone https://github.com/fizt656/eeg-music-generator.git
    cd eeg-music-generator
    ```
 
