@@ -1,4 +1,4 @@
-# COA (really just an EEG-based music generator)
+# COA: Cortical Oscillation Anlyzer (really just an EEG-based music generator)
 
 ![Project Banner](banner.png)
 
