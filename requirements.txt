@@ -1,9 +1,9 @@
 requests==2.31.0
---extra-index-url https://download.pytorch.org/whl/cu118
-torch
-torchaudio
-audiocraft
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.1.0+cu121
+torchaudio==2.1.0+cu121
+audiocraft==1.3.0
 python-osc==1.8.1
-numpy
-scipy
-python-dotenv
+numpy==1.26.4
+scipy==1.14.1
+python-dotenv==1.0.1

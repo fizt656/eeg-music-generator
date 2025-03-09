@@ -51,7 +51,7 @@ Note: Most EEG devices will require additional software to format and stream dat
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/eeg-music-generator.git
+   git clone https://github.com/fizt656/eeg-music-generator.git
    cd eeg-music-generator
    ```
 
@@ -76,7 +76,7 @@ Note: Most EEG devices will require additional software to format and stream dat
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/eeg-music-generator.git
+   git clone https://github.com/fizt656/eeg-music-generator.git
    cd eeg-music-generator
    ```
 
