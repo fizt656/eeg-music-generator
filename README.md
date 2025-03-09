@@ -1,17 +1,19 @@
-![COA Banner](banner.png)
 # EEG-Based Music Generator
 
-Welcome to the EEG-Based Music Generator, where we turn brain waves into tunes! As the Chief of Appetization (COA) would say, "Let's serve up some auditory delights!"
+![Project Banner](banner.png)
 
-## Features
+A software application that converts EEG (electroencephalogram) data into musical compositions by analyzing brain wave frequency patterns.
 
-- Real-time EEG data processing via OSC (Open Sound Control)
-- Simulated EEG data generation for testing
-- Frequency band analysis (Delta, Theta, Alpha, Beta, Gamma)
-- Music generation using AudioCraft (local) or Replicate API
-- CSV export of collected EEG frequency data
+## What It Does
 
-## Requirements
+This application processes EEG data, either from hardware devices or through simulation, to generate music that corresponds to detected brain activity patterns. The system:
+
+1. Receives EEG data via OSC protocol
+2. Analyzes frequency bands (Delta, Theta, Alpha, Beta, Gamma)
+3. Creates a text prompt based on the dominant frequency patterns
+4. Generates music using either local processing or cloud API
+
+## Technical Requirements
 
 - Python 3.7+
 - PyTorch
@@ -20,10 +22,32 @@ Welcome to the EEG-Based Music Generator, where we turn brain waves into tunes! 
 - numpy
 - scipy
 - python-dotenv
+- requests (for API calls)
+
+## EEG Hardware Compatibility
+
+This software expects EEG data to be transmitted via OSC (Open Sound Control) protocol to `127.0.0.1:65001` with the address pattern `/eeg`. The expected data format is an array of 5 floating-point values representing the power in each frequency band:
+
+```
+[delta_power, theta_power, alpha_power, beta_power, gamma_power]
+```
+
+### Compatible EEG Hardware (examples)
+
+- **Research Grade:**
+  - OpenBCI Ultracortex Mark IV (with OSC data streaming)
+  - Emotiv EPOC+ (requires additional software to convert to OSC format)
+  - Muse 2 or Muse S (requires MuseIO or similar to stream via OSC)
+
+- **Consumer Grade:**
+  - Neurosity Crown (with custom OSC bridge)
+  - NeuroSky MindWave (requires additional software to convert to OSC)
+
+Note: Most EEG devices will require additional software to format and stream data in the expected OSC format. This may involve using middleware or writing custom scripts to process the raw EEG data.
 
 ## Installation
 
-### For Windows and Linux:
+### Windows and Linux
 
 1. Clone this repository:
    ```
@@ -31,18 +55,24 @@ Welcome to the EEG-Based Music Generator, where we turn brain waves into tunes! 
    cd eeg-music-generator
    ```
 
-2. Install the required packages:
+2. Run the installation script:
    ```
-   pip install -r requirements.txt
+   # Windows
+   install_and_run_windows.bat
+   
+   # Linux
+   # First make the script executable
+   chmod +x install_and_run_mac.sh
+   # Then run it (works for Linux too)
+   ./install_and_run_mac.sh
    ```
 
 3. Set up your environment variables:
-   - Copy .env.example to .env
-   - Open .env and replace 'your_replicate_api_token_here' with your actual Replicate API token
+   - Copy `.env.example` to `.env`
+   - Open `.env` and replace 'your_replicate_api_token_here' with your actual Replicate API token
+   - Note: API token is only required if you plan to use the Replicate API for music generation
 
-### For Mac Users:
-
-Mac users should use the `music_generator_mac.py` script and follow these steps:
+### macOS
 
 1. Clone the repository:
    ```
@@ -50,92 +80,138 @@ Mac users should use the `music_generator_mac.py` script and follow these steps:
    cd eeg-music-generator
    ```
 
-2. Install Miniconda (if not already installed):
+2. Run the installation script:
    ```
-   curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-   sh Miniconda3-latest-MacOSX-arm64.sh
-   ```
-   Follow the prompts to complete the installation.
-
-3. Create and activate a new Conda environment:
-   ```
-   conda create -n eeg_music_env python=3.9
-   conda activate eeg_music_env
+   # First make the script executable
+   chmod +x install_and_run_mac.sh
+   # Then run it
+   ./install_and_run_mac.sh
    ```
 
-4. Install the required packages:
-   ```
-   conda install pytorch torchvision torchaudio -c pytorch
-   pip install -r requirements-mac.txt
-   ```
-   
-   Note: If you encounter issues installing all dependencies at once, try installing them one by one.
-
-5. Set up your environment variables:
-   - Copy .env.example to .env
-   - Open .env and replace 'your_replicate_api_token_here' with your actual Replicate API token
+3. Set up your environment variables:
+   - Copy `.env.example` to `.env`
+   - Open `.env` and replace 'your_replicate_api_token_here' with your actual Replicate API token
+   - Note: API token is only required if you plan to use the Replicate API for music generation
 
 ## Usage
 
-### For Windows and Linux:
+### Command-line Options
 
-#### Using real EEG data:
-
-```
-python music_generator.py --eeg [--local] [--duration DURATION]
-```
-
-#### Using simulated EEG data:
-
-```
-python music_generator.py --simulate [--local] [--duration DURATION]
-```
-
-#### Generating music without EEG data:
-
-```
-python music_generator.py [--local] [--duration DURATION]
-```
-
-### For Mac:
-
-Use the same commands as above, but replace `music_generator.py` with `music_generator_mac.py`:
-
-```
-python music_generator_mac.py [options]
-```
-
-### Command-line options:
+The application supports several command-line options:
 
 - `--eeg`: Use real EEG data for prompt generation
 - `--simulate`: Use simulated EEG data for prompt generation
 - `--local`: Use local AudioCraft instance instead of Replicate API
-- `--duration DURATION`: Set the duration of the generated music in seconds
+- `--duration DURATION`: Set the duration of the generated music in seconds (default: 8)
 
-## Output
+### Windows and Linux
 
-- Generated music will be saved as `generated_music_{timestamp}.wav` (local) or `generated_music.mp3` (Replicate API)
-- EEG frequency data will be saved as a CSV file named `eeg_frequency_data_YYYYMMDD_HHMMSS.csv`
+```bash
+# Using real EEG data with local generation
+python music_generator_cuda.py --eeg --local
+
+# Using simulated EEG data with Replicate API
+python music_generator_cuda.py --simulate
+
+# Manual prompt with local generation
+python music_generator_cuda.py --local
+
+# Specify music duration (in seconds)
+python music_generator_cuda.py --local --duration 15
+```
+
+### macOS
+
+```bash
+# Using real EEG data with local generation
+python music_generator_mac.py --eeg --local
+
+# Using simulated EEG data with local generation
+python music_generator_mac.py --simulate --local
+
+# Manual prompt with local generation
+python music_generator_mac.py --local
+
+# Specify music duration (in seconds)
+python music_generator_mac.py --local --duration 15
+```
+
+## Technical Details
+
+### EEG Data Processing
+
+The application processes EEG data in the following frequency bands:
+- **Delta (0.5-4 Hz)**: Associated with deep sleep and healing
+- **Theta (4-8 Hz)**: Associated with meditation and creativity
+- **Alpha (8-13 Hz)**: Associated with relaxed alertness
+- **Beta (13-30 Hz)**: Associated with active thinking and focus
+- **Gamma (30+ Hz)**: Associated with higher cognitive processing
+
+The system:
+1. Collects EEG data through an OSC server listening on port 65001
+2. Calculates the average power in each frequency band
+3. Determines the dominant frequency band
+4. Uses the Beta/Alpha ratio to assess emotional valence
+5. Generates a text prompt based on these analyses
+
+### Music Generation Methods
+
+#### Local Generation (AudioCraft)
+- Uses Meta's MusicGen model from the AudioCraft library
+- Processes entirely on your local machine
+- Outputs WAV format audio files
+- Can utilize GPU acceleration if available
+
+#### Cloud Generation (Replicate API)
+- Uses Replicate's hosted version of MusicGen
+- Requires internet connection and API token
+- Outputs MP3 format audio files
+- Generally produces higher quality results but depends on API availability
+
+### Data Export
+
+- EEG frequency data is saved to a CSV file: `eeg_frequency_data_YYYYMMDD_HHMMSS.csv`
+- Generated music is saved as:
+  - Local: `generated_music_{timestamp}.wav`
+  - Replicate API: `generated_music.mp3`
 
 ## Troubleshooting
 
-- Ensure your EEG device is correctly set up and sending data to 127.0.0.1 on port 65001
-- The OSC message should be sent to the "/eeg" address with the frequency band data as arguments
-- If using the Replicate API, make sure your API token is correctly set in the .env file
-- For Mac users: If you encounter issues with audio playback, the script will provide the file path. You can manually open and play the generated audio file using your preferred audio player.
+### EEG Connection Issues
 
-Remember, as the COA would say: "A well-prepared environment is the secret ingredient to any successful experiment!"
+- Verify your EEG device is correctly configured to send OSC messages to 127.0.0.1:65001
+- Ensure the OSC message format matches the expected format (array of 5 floating-point values)
+- Check that no firewall is blocking the connection
+- If using custom middleware to convert your EEG data to OSC, verify it's functioning correctly
 
-## Note for Mac Users
+### API Issues
 
-If you encounter any issues with automatic audio playback on Mac, the script will provide you with the path to the generated audio file. You can manually open and play this file using your preferred audio player application.
+- If using the Replicate API, make sure your API token is correctly set in the `.env` file
+- Check your internet connection
+- Verify that you have not exceeded your API rate limits
 
-For example, you can use the following command in the terminal to play the audio file:
+### Audio Playback Issues
 
-```
-afplay /path/to/generated_music_file.wav
-```
+- If audio doesn't play automatically, the file path will be displayed in the console
+- You can manually open and play the generated audio file using your preferred audio player
+- For Mac users, you can use: `afplay /path/to/generated_music_file.wav`
+- For Windows users, the file should open automatically with the default audio player
 
-Replace `/path/to/generated_music_file.wav` with the actual path provided by the script.
+### CUDA/GPU Issues
 
-If you continue to experience issues, please ensure that your system's audio settings are correctly configured and that you have the necessary permissions to access audio devices.
+- If you encounter CUDA-related errors, try running with CPU by removing the `--local` flag
+- Ensure you have compatible NVIDIA drivers installed for GPU acceleration
+
+## Simulation Mode
+
+If you don't have EEG hardware, you can still test the application using the `--simulate` flag. This will generate random values for each frequency band to simulate EEG data. While this doesn't represent actual brain activity, it allows you to test the music generation functionality.
+
+## License
+
+[Specify your license here]
+
+## Acknowledgements
+
+- AudioCraft by Meta Research for the MusicGen model
+- Replicate for their API services
+- [Any other acknowledgements]
