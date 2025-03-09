@@ -208,10 +208,21 @@ If you don't have EEG hardware, you can still test the application using the `--
 
 ## License
 
-[Specify your license here]
+This project is available under a dual license:
+
+1. **Open Source Use**: MIT License - Free to use, modify, and distribute for non-commercial purposes.
+
+2. **Commercial Use**: Prohibited without explicit written permission from the copyright holder.
+
+See the [LICENSE](LICENSE) file for complete terms and conditions.
+
+Copyright (c) 2024 Gus F. Halwani, PhD
 
 ## Acknowledgements
 
 - AudioCraft by Meta Research for the MusicGen model
 - Replicate for their API services
-- [Any other acknowledgements]
+- python-osc for OSC protocol communication
+- NumPy and SciPy for scientific computing and signal processing
+- PyTorch for deep learning and GPU acceleration
+- The developers of various EEG hardware and software that make brain-computer interfaces accessible
