@@ -208,11 +208,11 @@ If you don't have EEG hardware, you can still test the application using the `--
 
 ## License
 
-This project is available under a dual license:
+This project is available under the MIT License with Commercial Use Restriction:
 
-1. **Open Source Use**: MIT License - Free to use, modify, and distribute for non-commercial purposes.
+1. **Open Source Use**: Free to use, modify, and distribute for non-commercial purposes under the MIT License terms.
 
-2. **Commercial Use**: Prohibited without explicit written permission from the copyright holder.
+2. **Commercial Use Restriction**: The software may not be used for any commercial purposes without explicit written permission from the copyright holder.
 
 See the [LICENSE](LICENSE) file for complete terms and conditions.
 
